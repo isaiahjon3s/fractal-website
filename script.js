@@ -18,6 +18,10 @@ const fractalType = Math.random() > 0.5 ? 'mandelbrot' : 'julia';
 const juliaCx = (Math.random() - 0.5) * 2;
 const juliaCy = (Math.random() - 0.5) * 2;
 
+console.log(`Fractal Type: ${fractalType}`);
+console.log(`Zoom: ${zoom}, OffsetX: ${offsetX}, OffsetY: ${offsetY}`);
+console.log(`Julia Constants: cx=${juliaCx}, cy=${juliaCy}`);
+
 function drawFractal() {
     for (let x = 0; x < canvas.width; x++) {
         for (let y = 0; y < canvas.height; y++) {
