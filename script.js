@@ -5,21 +5,39 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth * 0.8;
 canvas.height = window.innerHeight * 0.6;
 
-// Mandelbrot parameters
+// Randomize fractal parameters
 const maxIterations = 100;
-const zoom = 200;
-const offsetX = -2.5;
-const offsetY = -1.5;
+const zoom = Math.random() * 300 + 100; // Random zoom between 100 and 400
+const offsetX = (Math.random() - 0.5) * 4; // Random offsetX between -2 and 2
+const offsetY = (Math.random() - 0.5) * 4; // Random offsetY between -2 and 2
 
-function drawMandelbrot() {
+// Randomly choose between Mandelbrot and Julia set
+const fractalType = Math.random() > 0.5 ? 'mandelbrot' : 'julia';
+
+// Julia set constant (randomized)
+const juliaCx = (Math.random() - 0.5) * 2;
+const juliaCy = (Math.random() - 0.5) * 2;
+
+function drawFractal() {
     for (let x = 0; x < canvas.width; x++) {
         for (let y = 0; y < canvas.height; y++) {
-            let zx = 0;
-            let zy = 0;
-            let cx = (x / zoom) + offsetX;
-            let cy = (y / zoom) + offsetY;
-            let iteration = 0;
+            let zx, zy, cx, cy;
 
+            if (fractalType === 'mandelbrot') {
+                // Mandelbrot set
+                zx = 0;
+                zy = 0;
+                cx = (x / zoom) + offsetX;
+                cy = (y / zoom) + offsetY;
+            } else {
+                // Julia set
+                zx = (x / zoom) + offsetX;
+                zy = (y / zoom) + offsetY;
+                cx = juliaCx;
+                cy = juliaCy;
+            }
+
+            let iteration = 0;
             while (zx * zx + zy * zy < 4 && iteration < maxIterations) {
                 let temp = zx * zx - zy * zy + cx;
                 zy = 2 * zx * zy + cy;
@@ -34,6 +52,9 @@ function drawMandelbrot() {
         }
     }
 }
+
+// Draw the fractal
+drawFractal();
 
 // Draw the fractal
 drawMandelbrot();
